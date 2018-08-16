@@ -3,8 +3,8 @@ import random #We'll need this later in the lab
 
 turtle.tracer(1,0) #This helps the turtle move more smoothly
 
-SIZE_X=1000
-SIZE_Y=1000
+SIZE_X=800
+SIZE_Y=500
 turtle.setup(SIZE_X, SIZE_Y) #Curious? It's the turtle window  
                              #size. 
 turtle.penup()
@@ -67,10 +67,10 @@ LEFT = 3
 ####WRITE YOUR CODE HERE!!
 
 direction = UP
-UP_EDGE = 500
-DOWN_EDGE = -500
-RIGHT_EDGE = 800
-LEFT_EDGE = -800
+UP_EDGE = 250
+DOWN_EDGE = -250
+RIGHT_EDGE = 400
+LEFT_EDGE = -400
 
 
 def up():
@@ -124,7 +124,6 @@ def make_food():
     food_pos.append( food.pos() ) 
         ##3.WRITE YOUR CODE HERE: Add the food turtle's stamp to the food stamps list
     food_stamps.append(food.stamp())
-    
 def move_snake():
     global food_stamps, food_pos
     my_pos = snake.pos()
@@ -143,8 +142,7 @@ def move_snake():
     elif direction==DOWN:
         snake.goto(x_pos,y_pos - SQUARE_SIZE)
         print('u moved down')
-    
-    
+
      #Add new lines to the end of the function
     #Grab position of snake
     new_pos = snake.pos()
@@ -183,11 +181,8 @@ def move_snake():
     pos_list.append(my_pos)
     new_stamp = snake.stamp()
     stamp_list.append(new_stamp)
-    
     ######## SPECIAL PLACE - Remember it for Part
-    if snake.pos() in pos_list[:-1]:
-        quit()
-        print( 'hehe u played urself')
+   
     #If snake is on top of food item
     if snake.pos() in food_pos:
         food_ind=food_pos.index(snake.pos()) #What does this do?
@@ -196,18 +191,16 @@ def move_snake():
         food_pos.pop(food_ind) #Remove eaten food position
         food_stamps.pop(food_ind) #Remove eaten food stamp
         print('You have eaten the food!')
-    else:
-             old_stamp = stamp_list.pop(0)
-             snake.clearstamp(old_stamp)
-             pos_list.pop(0)
-             snake.clearstamp(old_stamp)
+    
     #HINT: This if statement may be useful for Part 8
 
     #pop zeroth element in pos_list to get rid of last the last 
     #piece of the tail
     
-   
-
+    old_stamp = stamp_list.pop(0)
+    snake.clearstamp(old_stamp)
+    pos_list.pop(0)
+    snake.clearstamp(old_stamp)
     turtle.ontimer(move_snake,TIME_STEP)
     #Go to the top of your file, and after the line that says direction = UP,  write:
 turtle.register_shape("trash.gif") #Add trash picture
@@ -216,7 +209,7 @@ turtle.register_shape("trash.gif") #Add trash picture
                       # in the same folder as this Python script
 
 food = turtle.clone()
-food.shape("trash.gif") 
+food.shape('trash.gif')
 
 #Locations of food
 food_pos = [(100,100), (-100,100), (-100,-100), (100,-100)]
@@ -233,10 +226,4 @@ for this_food_pos in food_pos :
     food.goto (this_food_pos)
     food_stamps_id = food.stamp()
     food_stamps.append(food_stamps_id)
-
-
-
-
 move_snake()
-
-    
